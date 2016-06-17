@@ -1,6 +1,6 @@
 
 var sw_ver = "0.0.1 003"
-var deviceID = "NA";
+var deviceID = "TEST";
 var lastReadMin = -1;
 
 var sidemenu_main = {
@@ -90,7 +90,7 @@ function updatePosition(position) {
 
     //
     lastReadMin = d.getMinutes();
-    var url = "http://localhost:8080/rest/location/insert";
+    var url = "http://115.124.106.248:8182/rest/location/insert";
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
       //alert(text);
     });
