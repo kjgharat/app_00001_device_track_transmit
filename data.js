@@ -1,4 +1,5 @@
 
+var sw_ver = "0.0.1 003"
 var deviceID = "NA";
 var lastReadMin = -1;
 
@@ -21,8 +22,18 @@ var sidemenu_main = {
     data: [
       {id: 1, value: "User Profile", icon: "user"},
       {id: 2, value: "Settings", icon: "cog"},
-      {id: 3, value: "Contact us", icon: "phone"}
+      {id: 3, value: "Contact us", icon: "envelope"},
+      {id: 4, value: "Version", icon: "code-fork"}
     ],
+    on: {
+      onItemClick: function (id) {
+        if (id == 3) {
+          webix.alert("nebulasoftwares@gmail.com");
+        } else if (id == 4) {
+          webix.alert(sw_ver);
+        }
+      }
+    },
     select: true,
     type: {
       height: 40
@@ -33,7 +44,7 @@ var sidemenu_main = {
 function trackLocation() {
   if (navigator.geolocation) {
     //alert("test");
-    navigator.geolocation.watchPosition(showPosition);
+    navigator.geolocation.watchPosition(updatePosition);
   } else {
     alert("Geolocation is not supported by this device.");
   }
@@ -48,7 +59,7 @@ function trackLocation() {
 }
 ;
 
-function showPosition(position) {
+function updatePosition(position) {
 
   var latVal = position.coords.latitude;
   var longVal = position.coords.longitude;
@@ -59,9 +70,10 @@ function showPosition(position) {
           " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2);
 
   var currentMin = d.getMinutes();
-
+  var updateFreq = $$("combo_updatefreq").getValue();
+  //alert("updateFreq: " + updateFreq);
   //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
-  if ((lastReadMin == -1) || (((currentMin % 2) == 0) && (currentMin != lastReadMin))) {
+  if ((lastReadMin == -1) || (((currentMin % updateFreq) == 0) && (currentMin != lastReadMin))) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
     payload.deviceID = deviceID;
@@ -75,12 +87,6 @@ function showPosition(position) {
     $$('long').refresh();
     $$('timestamp').setValue(readtimeStr);
     $$('timestamp').refresh();
-
-    /*
-     var myLatlng = new google.maps.LatLng(latVal, longVal);
-     $$('map').map.setOptions({zoom: 15, center: myLatlng, mapTypeId: google.maps.MapTypeId.ROADMAP});
-     var marker = new google.maps.Marker({map: $$('map').map, position: myLatlng, title: readtimeStr});
-     //$$('map').refresh();*/
 
     //
     lastReadMin = d.getMinutes();
