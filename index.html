@@ -43,16 +43,15 @@
                       $$("topmenu").hide();
                   }
                 },
-                {view: "label", width: 140, label: "Track Anywhere - Transmitter", align: "left"},
-                {view: "label", label: ""},
-                {view: "label", label: "<img class='photo' src='res/icon.png' />", width: 63, height: 49, align: "left"}
+                {view: "label", width: 350, label: "Track Anywhere - Transmitter", align: "left"},
+                {view: "label", label: ""}
               ]
             },
             {view: "label", label: "", height: 10},
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "label", label: "Device Id:", width: 75, align: "right"},
+                {view: "label", label: "Device Id:", width: 90, align: "right"},
                 {id: "devid", view: "label", label: "", width: 150},
                 {view: "label", label: ""}
               ]
@@ -60,18 +59,31 @@
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "label", label: "Latitude:", width: 75, align: "right"},
-                {id: "lat", view: "label", label: "0.0", width: 100, css: "infolabelClass"},
+                {view: "label", label: "Latitude:", width: 90, align: "right"},
+                {id: "lat", view: "label", label: "0.0", width: 140, css: "infolabelClass"},
                 {view: "label", label: "", width: 10},
                 {view: "label", label: "Longitude:", width: 75, align: "right"},
-                {id: "long", view: "label", label: "0.0", width: 100, css: "infolabelClass"},
+                {id: "long", view: "label", label: "0.0", width: 140, css: "infolabelClass"},
                 {view: "label", label: ""}
               ]
             },
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "label", label: "Last Update:", width: 85, align: "right"},
+                {view: "label", label: "Update Freq:", width: 90, align: "right"},
+                {id: "combo_updatefreq", view: "richselect", width: 150, value: 5, yCount: "3", options: [
+                    {id: 5, value: "5 minute"}, // the initially selected item
+                    {id: 10, value: "10 minutes"},
+                    {id: 30, value: "30 minutes"}
+                  ]
+                },
+                {view: "label", label: ""}
+              ]
+            },
+            {
+              cols: [
+                {view: "label", label: "", width: 5},
+                {view: "label", label: "Last Update:", width: 90, align: "right"},
                 {id: "timestamp", view: "label", label: "0:0:0", width: 150},
                 {view: "label", label: ""}
               ]
