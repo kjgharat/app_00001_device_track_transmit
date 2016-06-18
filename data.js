@@ -75,7 +75,7 @@ function updatePosition(position) {
   var updateDelay = 300000; //300000
   //alert("updateFreq: " + updateFreq);
   //alert("lastReadMin: " + (currentMin % updateFreq));
-  if ((firstread = 0) ||   ((d - lastReadTime) > updateDelay)) {
+  if ((firstread === 0) ||   ((d - lastReadTime) > updateDelay)) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
     payload.Deviceimei = deviceID;
