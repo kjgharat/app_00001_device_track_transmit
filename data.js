@@ -2,6 +2,7 @@
 var sw_ver = "0.0.1 005"
 var deviceID = "TEST";
 var lastReadTime = new Date();
+var firstread = 0;
 
 var sidemenu_main = {
   view: "sidemenu",
@@ -74,7 +75,7 @@ function updatePosition(position) {
   var updateDelay = 300000; //300000
   //alert("updateFreq: " + updateFreq);
   //alert("lastReadMin: " + (currentMin % updateFreq));
-  if ((d - lastReadTime) > updateDelay) {
+  if ((firstread = 0) ||   ((d - lastReadTime) > updateDelay)) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
     payload.Deviceimei = deviceID;
@@ -95,6 +96,7 @@ function updatePosition(position) {
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
       //alert(text);
     });
+    firstread = -1;
   }
 }
 
