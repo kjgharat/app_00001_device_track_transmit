@@ -94,7 +94,7 @@ function updatePosition(position) {
     lastReadMin = d.getMinutes();
     var url = "http://115.124.106.248:8182/rest/location/update";
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
-      //alert(text);
+      alert(text);
     });
 
   }
