@@ -62,15 +62,15 @@
               cols: [
                 {view: "label", label: "", width: 5},
                 {view: "label", label: "Latitude:", width: 90, align: "right"},
-                {id: "lat", view: "label", label: "0.0", width: 150, css: "infolabelClass"},
+                {id: "lat", view: "label", label: "0.0", width: 180, css: "infolabelClass"},
                 {view: "label", label: ""}
               ]
             },
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "label", label: "Longitude:", width: 75, align: "right"},
-                {id: "long", view: "label", label: "0.0", width: 150, css: "infolabelClass"},
+                {view: "label", label: "Longitude:", width: 90, align: "right"},
+                {id: "long", view: "label", label: "0.0", width: 180, css: "infolabelClass"},
                 {view: "label", label: ""}
               ]
             },
@@ -90,14 +90,22 @@
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "button", label: 'Start', width: 100, align: 'center', click:trackLocation },
+                {view: "label", label: "Last Update:", width: 90, align: "right"},
+                {id: "timestamp", view: "label", label: "0:0:0", width: 150},
+                {view: "label", label: ""}
+              ]},
+            {
+              cols: [
+                {view: "label", label: "", width: 5},
+                {view: "button", label: 'Start', width: 100, align: 'center', click: trackLocation},
                 {view: "label", label: ""}
               ]
             }
           ]
         });
         webix.ui(sidemenu_main);
-        trackLocation(); //, center: [48.724, 8.215]
+        document.addEventListener("deviceready", onDeviceReady, false);
+        //trackLocation(); //, center: [48.724, 8.215]
       });
 
 

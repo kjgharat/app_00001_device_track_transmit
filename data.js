@@ -99,6 +99,11 @@ function updatePosition(position) {
 
   }
 }
+
+function onDeviceReady() {
+  trackLocation();
+}
+
 //sudo ufw status verbose
 //sudo ufw enable
 //new Date().toJSON().slice(0,10)
