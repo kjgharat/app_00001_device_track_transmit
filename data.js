@@ -42,6 +42,15 @@ var sidemenu_main = {
 };
 
 function trackLocation() {
+
+  try {
+    deviceID = device.uuid;
+    $$('devid').setValue(deviceID);
+    $$('devid').refresh();
+  } catch (err) {
+    alert("Could not retrieve devive ID:" + err);
+  }
+
   if (navigator.geolocation) {
     //alert("test");
     navigator.geolocation.watchPosition(updatePosition);
@@ -49,13 +58,6 @@ function trackLocation() {
     alert("Geolocation is not supported by this device.");
   }
 
-  try {
-    deviceID = device.uuid;
-    $$('devid').setValue(deviceID);
-    $$('devid').refresh();
-  } catch (err) {
-    alert("Could not retrieve devive ID");
-  }
 }
 ;
 

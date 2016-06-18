@@ -8,6 +8,8 @@
     <!--<script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>  -->
     <script type="text/javascript" src="googlemap.js"></script>
     <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
     <style>
       .blue.webix_menu-x{background:#3498DB;}
       .topmenu.webix_view{
@@ -60,10 +62,15 @@
               cols: [
                 {view: "label", label: "", width: 5},
                 {view: "label", label: "Latitude:", width: 90, align: "right"},
-                {id: "lat", view: "label", label: "0.0", width: 140, css: "infolabelClass"},
-                {view: "label", label: "", width: 10},
+                {id: "lat", view: "label", label: "0.0", width: 150, css: "infolabelClass"},
+                {view: "label", label: ""}
+              ]
+            },
+            {
+              cols: [
+                {view: "label", label: "", width: 5},
                 {view: "label", label: "Longitude:", width: 75, align: "right"},
-                {id: "long", view: "label", label: "0.0", width: 140, css: "infolabelClass"},
+                {id: "long", view: "label", label: "0.0", width: 150, css: "infolabelClass"},
                 {view: "label", label: ""}
               ]
             },
@@ -83,8 +90,7 @@
             {
               cols: [
                 {view: "label", label: "", width: 5},
-                {view: "label", label: "Last Update:", width: 90, align: "right"},
-                {id: "timestamp", view: "label", label: "0:0:0", width: 150},
+                {view: "button", label: 'Start', width: 100, align: 'center', click:trackLocation },
                 {view: "label", label: ""}
               ]
             }
