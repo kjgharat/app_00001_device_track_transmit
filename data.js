@@ -1,5 +1,5 @@
 
-var sw_ver = "0.0.1 003"
+var sw_ver = "0.0.1 005"
 var deviceID = "TEST";
 var lastReadMin = -1;
 
@@ -74,11 +74,11 @@ function updatePosition(position) {
   var currentMin = d.getMinutes();
   var updateFreq = $$("combo_updatefreq").getValue();
   //alert("updateFreq: " + updateFreq);
-  //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
+  alert("lastReadMin: " + (currentMin % updateFreq));
   if ((lastReadMin == -1) || (((currentMin % updateFreq) == 0) && (currentMin != lastReadMin))) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
-    payload.deviceID = deviceID;
+    payload.Deviceimei = deviceID;
     payload.Readtime = readtime;
     payload.Latitude = latVal;
     payload.Longitude = longVal;
@@ -94,7 +94,7 @@ function updatePosition(position) {
     lastReadMin = d.getMinutes();
     var url = "http://115.124.106.248:8182/rest/location/update";
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
-      alert(text);
+      //alert(text);
     });
 
   }
@@ -107,4 +107,13 @@ function onDeviceReady() {
 //sudo ufw status verbose
 //sudo ufw enable
 //new Date().toJSON().slice(0,10)
+/*
+{
+cols: [
+{view: "label", label: "", width: 5},
+{view: "button", label: 'Start', width: 100, align: 'center', click: trackLocation},
+{view: "label", label: ""}
+]
+}
+*/
 
