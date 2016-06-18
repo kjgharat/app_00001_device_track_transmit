@@ -74,7 +74,7 @@ function updatePosition(position) {
   var currentMin = d.getMinutes();
   var updateFreq = $$("combo_updatefreq").getValue();
   //alert("updateFreq: " + updateFreq);
-  alert("lastReadMin: " + (currentMin % updateFreq));
+  //alert("lastReadMin: " + (currentMin % updateFreq));
   if ((lastReadMin == -1) || (((currentMin % updateFreq) == 0) && (currentMin != lastReadMin))) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
