@@ -1,7 +1,7 @@
 
 var sw_ver = "0.0.1 005"
 var deviceID = "TEST";
-var lastReadMin = -1;
+var lastReadTime = new Date();
 
 var sidemenu_main = {
   view: "sidemenu",
@@ -71,6 +71,43 @@ function updatePosition(position) {
   var readtimeStr = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
           " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2);
 
+  var updateDelay = 300000; //300000
+  //alert("updateFreq: " + updateFreq);
+  //alert("lastReadMin: " + (currentMin % updateFreq));
+  if ((d - lastReadTime) > updateDelay) {
+    //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
+    var payload = {};
+    payload.Deviceimei = deviceID;
+    payload.Readtime = readtime;
+    payload.Latitude = latVal;
+    payload.Longitude = longVal;
+
+    $$('lat').setValue(latVal);
+    $$('lat').refresh();
+    $$('long').setValue(longVal);
+    $$('long').refresh();
+    $$('timestamp').setValue(readtimeStr);
+    $$('timestamp').refresh();
+
+    //
+    lastReadTime = d;
+    var url = "http://115.124.106.248:8182/rest/location/update";
+    webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
+      //alert(text);
+    });
+  }
+}
+
+function updatePosition1(position) {
+
+  var latVal = position.coords.latitude;
+  var longVal = position.coords.longitude;
+  var d = new Date();
+  var readtime = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
+          "T" + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2) + ".000Z";
+  var readtimeStr = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
+          " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2);
+
   var currentMin = d.getMinutes();
   var updateFreq = $$("combo_updatefreq").getValue();
   //alert("updateFreq: " + updateFreq);
@@ -96,7 +133,6 @@ function updatePosition(position) {
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
       //alert(text);
     });
-
   }
 }
 
