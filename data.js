@@ -1,5 +1,5 @@
 
-var sw_ver = "0.0.1 005"
+var sw_ver = "0.0.1 006"
 var deviceID = "TEST";
 var lastReadTime = new Date();
 var firstread = 0;
@@ -52,34 +52,36 @@ function trackLocation() {
     alert("Could not retrieve devive ID:" + err);
   }
 
-  if (navigator.geolocation) {
-    //alert("test");
-    navigator.geolocation.watchPosition(updatePosition);
-  } else {
-    alert("Geolocation is not supported by this device.");
+  try {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(updatePosition);
+    } else {
+      alert("Geolocation is not supported by this device.");
+    }
+  } catch (err) {
+    alert("Could not retrieve geolocation:" + err);
   }
+
 
 }
 ;
 
 function updatePosition(position) {
-
   var latVal = position.coords.latitude;
   var longVal = position.coords.longitude;
   var d = new Date();
-  var readtime = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
-          "T" + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2) + ".000Z";
+  //var readtime = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
+  //        "T" + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2) + ".000Z";
   var readtimeStr = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
           " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2);
 
-  var updateDelay = 300000; //300000
+  var updateDelay = 3000; //300000
   //alert("updateFreq: " + updateFreq);
   //alert("lastReadMin: " + (currentMin % updateFreq));
-  if ((firstread === 0) ||   ((d - lastReadTime) > updateDelay)) {
+  if ((firstread === 0) || ((d - lastReadTime) > updateDelay)) {
     //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
     var payload = {};
     payload.Deviceimei = deviceID;
-    payload.Readtime = readtime;
     payload.Latitude = latVal;
     payload.Longitude = longVal;
 
@@ -92,7 +94,7 @@ function updatePosition(position) {
 
     //
     lastReadTime = d;
-    var url = "http://115.124.106.248:8182/rest/location/update";
+    var url = "http://192.168.1.6:8182/rest/location/update"; //115.124.106.248    
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
       //alert(text);
     });
@@ -100,43 +102,7 @@ function updatePosition(position) {
   }
 }
 
-function updatePosition1(position) {
 
-  var latVal = position.coords.latitude;
-  var longVal = position.coords.longitude;
-  var d = new Date();
-  var readtime = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
-          "T" + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2) + ".000Z";
-  var readtimeStr = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) +
-          " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2);
-
-  var currentMin = d.getMinutes();
-  var updateFreq = $$("combo_updatefreq").getValue();
-  //alert("updateFreq: " + updateFreq);
-  //alert("lastReadMin: " + (currentMin % updateFreq));
-  if ((lastReadMin == -1) || (((currentMin % updateFreq) == 0) && (currentMin != lastReadMin))) {
-    //alert("lastReadMin: " + lastReadMin + "  currentMin:  " + currentMin);
-    var payload = {};
-    payload.Deviceimei = deviceID;
-    payload.Readtime = readtime;
-    payload.Latitude = latVal;
-    payload.Longitude = longVal;
-
-    $$('lat').setValue(latVal);
-    $$('lat').refresh();
-    $$('long').setValue(longVal);
-    $$('long').refresh();
-    $$('timestamp').setValue(readtimeStr);
-    $$('timestamp').refresh();
-
-    //
-    lastReadMin = d.getMinutes();
-    var url = "http://115.124.106.248:8182/rest/location/update";
-    webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
-      //alert(text);
-    });
-  }
-}
 
 function onDeviceReady() {
   trackLocation();
@@ -146,12 +112,12 @@ function onDeviceReady() {
 //sudo ufw enable
 //new Date().toJSON().slice(0,10)
 /*
-{
-cols: [
-{view: "label", label: "", width: 5},
-{view: "button", label: 'Start', width: 100, align: 'center', click: trackLocation},
-{view: "label", label: ""}
-]
-}
-*/
+ {
+ cols: [
+ {view: "label", label: "", width: 5},
+ {view: "button", label: 'Start', width: 100, align: 'center', click: trackLocation},
+ {view: "label", label: ""}
+ ]
+ }
+ */
 
