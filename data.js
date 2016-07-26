@@ -43,7 +43,7 @@ var sidemenu_main = {
 };
 
 function trackLocation() {
-
+alert("Tracking started");
   try {
     deviceID = device.uuid;
     $$('devid').setValue(deviceID);
