@@ -94,7 +94,7 @@ function updatePosition(position) {
 
     //
     lastReadTime = d;
-    var url = "http://192.168.1.2:8182/rest/location/update"; //115.124.106.248    
+    var url = "http://192.168.1.6:8182/rest/location/update"; //115.124.106.248    
     webix.ajax().headers({"Content-type": "application/json"}).post(url, JSON.stringify(payload), function (text) {
       //alert(text);
     });
