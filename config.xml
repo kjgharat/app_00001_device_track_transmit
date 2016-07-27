@@ -45,8 +45,8 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-    <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
-    <plugin name="org.apache.cordova.geolocation" source="pgb" spec="0.3.12" />
+    <plugin name="org.apache.cordova.device" />
+    <plugin name="org.apache.cordova.geolocation" />
 
     <!--
     <gap:plugin name="org.apache.cordova.battery-status" />
