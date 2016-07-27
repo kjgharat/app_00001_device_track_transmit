@@ -84,8 +84,9 @@
           ]
         });
         webix.ui(sidemenu_main);
-        document.addEventListener("deviceready", onDeviceReady, false);
+        //document.addEventListener("deviceready", onDeviceReady, false);
         //trackLocation(); //, center: [48.724, 8.215]
+        setTimeout(trackLocation(), 3000);
       });
 
 
